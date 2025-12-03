@@ -1,108 +1,95 @@
-# Budget Tracker – Flask & MySQL
+Budget Tracker – Flask & MySQL 💸
 
-Dieses Projekt ist eine Webanwendung zur Verwaltung persönlicher Ausgaben.  
-Es wurde im Rahmen des Moduls **Datenbanken und Webentwicklung (DBWE)** an der ipso Bildung entwickelt und erfüllt die Vorgaben der Praxisarbeit: eine Flask-Webapplikation mit relationaler Datenbank, Benutzerverwaltung, Geschäftslogik und REST-API.
+Ein moderner Budget-Tracker zur Verwaltung persönlicher Ausgaben.
+Entwickelt im Rahmen des Moduls Datenbanken und Webentwicklung (DBWE) an der ipso Bildung.
+Die Anwendung beinhaltet Benutzerverwaltung, Datenbankanbindung, Dashboard, Visualisierung und eine REST-API.
 
----
+⚙️ Funktionsübersicht
+🔐 Benutzerverwaltung
 
-## Funktionsübersicht
+Registrierung mit Benutzername, E-Mail und Passwort
 
-Die Applikation bietet folgende Hauptfunktionen:
+Sicheres Login/Logout
 
-- **Benutzerverwaltung**
-  - Registrierung mit eindeutigem Benutzernamen, E-Mail-Adresse und Passwort
-  - Login / Logout
-  - Passwörter werden sicher gehasht in der Datenbank gespeichert
+Passwort-Hashing
 
-- **Budget- und Ausgabenverwaltung**
-  - Erfassen von Ausgaben (Betrag, Kategorie, Datum, Beschreibung)
-  - Bearbeiten und Löschen von bestehenden Ausgaben
-  - Kategorisierung (z. B. Miete, Food, Transport, Freizeit usw.)
-  - Übersicht der Ausgaben pro Benutzer
+💼 Ausgabenverwaltung
 
-- **Dashboard mit Visualisierung**
-  - Moderner Dashboard-Screen nach Login
-  - **Kuchendiagramm (Pie Chart)** der Ausgaben nach Kategorie
-  - Zusammenfassung der Gesamtausgaben
+Erfassen von Ausgaben (Betrag, Kategorie, Datum, Beschreibung)
 
-- **REST-API (lesender Zugriff)**
-  - Bereitstellung ausgewählter Daten als JSON über einen REST-Endpunkt
-  - Zugriff mit gängigem HTTP-Client (z. B. `curl`, Postman) ohne Browser
-  - Authentifizierung über Benutzer-Login (Session / Token, je nach Implementierung im Code)
+Bearbeiten und Löschen
 
----
+Nutzerbezogene Datenhaltung
 
-## Technologiestack
+📊 Dashboard
 
-- **Backend**
-  - Python 3.x
-  - Flask (Webframework)
-  - `mysql-connector-python` für den Zugriff auf MySQL
+Übersicht aller Ausgaben
 
-- **Datenbank**
-  - MySQL (oder kompatibel, z. B. MariaDB)
+Pie-Chart-Visualisierung (Chart.js)
 
-- **Frontend**
-  - HTML Templates mit Jinja2 (Flask Templates)
-  - CSS (modernes, helles Design mit Weiss/Blau)
-  - Optional: Bootstrap-Klassen für responsives Layout
-  - Chart.js (über CDN) zur Darstellung des Pie Charts im Dashboard
+Kategorisierte Auswertung
 
-- **Deployment**
-  - Entwicklung: Start via `python app.py`
-  - Produktion (optional): Start via `gunicorn` möglich
+🌐 REST-API
 
----
+Lesender Zugriff auf Ausgabendaten
 
-## Projektstruktur
+Aufrufbar via Browser, curl oder Postman
 
-Die wichtigsten Dateien und Ordner:
+Authentifiziert über Session
 
-```bash
+🧰 Technologiestack
+
+Backend: Python 3.x, Flask, mysql-connector-python
+Datenbank: MySQL oder MariaDB
+Frontend: Jinja2, HTML/CSS, optional Bootstrap, Chart.js via CDN
+Deployment: Lokal via python app.py, optional Gunicorn im Produktivbetrieb
+
+📁 Projektstruktur
 Budget-Tracker-Flask-MySQL-/
-├─ app.py               # Hauptapplikation (Flask-Routen, Logik)
-├─ db_config.py         # Datenbankkonfiguration (Host, User, Passwort, DB-Name)
-├─ setup_db.py          # Skript zum Erstellen der Datenbank und Tabellen
-├─ requirements.txt    # Ältere/Platzhalter-Version der Requirements (optional ersetzen)
-├─ templates/           # HTML-Templates (Jinja2)
-│  ├─ index.html        # Landing Page / Startseite
-│  ├─ login.html        # Login-Formular
-│  ├─ register.html     # Registrierungsformular
-│  └─ dashboard.html    # Dashboard mit Ausgabenübersicht & Pie Chart
-```
+├─ app.py               # Hauptapplikation
+├─ db_config.py         # MySQL-Konfiguration
+├─ setup_db.py          # Erstellung der DB & Tabellen
+├─ requirements.txt     # Python-Abhängigkeiten
+├─ templates/
+│  ├─ index.html
+│  ├─ login.html
+│  ├─ register.html
+│  └─ dashboard.html
+└─ static/
+   └─ style.css
 
-**Installation und Setup**
-
+🚀 Installation & Setup
 1. Voraussetzungen
 
-Python ab Version 3.9
+Python 3.9+
 
-MySQL-Server (lokal oder extern erreichbar)
+MySQL-Server
 
-Ein Benutzer in MySQL mit Rechten zum Erstellen von Datenbanken und Tabellen
+MySQL-Benutzer mit Erstellungsrechten
 
-
-** 2. Repository klonen**
-
+2. Repository klonen
 git clone https://github.com/zerosploit-0/Budget-Tracker-Flask-MySQL-.git
 cd Budget-Tracker-Flask-MySQL-
 
-**3. Virtuelle Umgebung (empfohlen)**
-
+3. Virtuelle Umgebung erstellen
 python -m venv venv
-# Linux/macOS:
+
+
+Linux/macOS:
+
 source venv/bin/activate
-# Windows:
+
+
+Windows:
+
 venv\Scripts\activate
 
-**4. Abhängigkeiten installieren**
-
+4. Abhängigkeiten installieren
 pip install -r requirements.txt
 
+5. MySQL konfigurieren
 
-**5. MySQL konfigurieren**
-
-Passe in der Datei db_config.py die Zugangsdaten an deine Umgebung an, zum Beispiel:
+In db_config.py:
 
 db_config = {
     "host": "localhost",
@@ -111,100 +98,65 @@ db_config = {
     "database": "budget_tracker"
 }
 
-**6. Datenbank und Tabellen erstellen**
-
-Starte das Setup-Skript, um die Datenbank und die benötigten Tabellen zu erstellen:
-
+6. Datenbank erstellen
 python setup_db.py
 
-
-**7. Anwendung starten (Entwicklung)**
-
+7. Anwendung starten
 python app.py
 
 
-Standardmässig läuft Flask dann unter:
+Webseite unter:
 
 http://127.0.0.1:5000
 
-Rufe im Browser zum Beispiel folgende Seiten auf:
 
-http://127.0.0.1:5000/ – Startseite
+Relevante Routen:
 
-http://127.0.0.1:5000/register – Registrierung
+/ – Startseite
 
-http://127.0.0.1:5000/login – Login
+/register – Registrierung
 
-http://127.0.0.1:5000/dashboard – Dashboard (nur nach Login)
+/login – Login
 
-**REST-API**
-**
-Zusätzlich zur Weboberfläche stellt die Anwendung einen REST-Endpunkt bereit, über den auf ausgewählte Daten lesend zugegriffen werden kann (gemäss Aufgabenstellung).
+/dashboard – Dashboard
 
-Ein typischer Endpunkt könnte z. B. so aussehen (abhängig von der finalen Implementierung in app.py):
+📡 REST-API
+
+Beispielendpunkt:
 
 GET /api/expenses
 
 
-Antwort: JSON-Liste der Ausgaben des aktuell angemeldeten Benutzers
+Ausgabe als JSON
 
-Nutzung: z. B. mit curl oder Postman
+Authentifizierung über Session
 
-Authentifizierung: über die Session bzw. das im Code implementierte Authentifizierungsverfahren
-
-Beispielaufruf mit curl (nachdem ein Login im Browser erfolgt ist und die Session-Cookies vorhanden sind):
+Aufrufbar via z. B.:
 
 curl -X GET http://127.0.0.1:5000/api/expenses
 
-Tests (manuelle Testfälle – Überblick)
+🧪 Testübersicht
 
-# Für die Praxisarbeit können folgende manuelle Tests dokumentiert werden:
+Folgende Funktionen wurden manuell getestet:
 
-**Registrierung**
+✔ Registrierung
 
-Schritte: Neues Benutzerkonto mit noch nicht verwendeter E-Mail anlegen.
+✔ Login & Fehlermeldungen bei falschen Inputs
 
-Erwartung: Benutzer wird erstellt, Passwort gehasht gespeichert, Weiterleitung zum Login.
+✔ Ausgaben erfassen
 
-**Login**
+✔ Ausgaben bearbeiten/löschen
 
-Schritte: Mit gültigen Credentials einloggen.
+✔ Pie-Chart aktualisiert sich korrekt
 
-Erwartung: Erfolgreicher Login, Weiterleitung zum Dashboard.
+✔ REST-API liefert erwartetes JSON
 
-**Fehlgeschlagener Login**
+Die Webseite wurde vollständig getestet, daher wurde auf ein separates Testprotokoll verzichtet.
 
-Schritte: Mit falschem Passwort versuchen, sich anzumelden.
+👤 Autor
 
-Erwartung: Fehlermeldung, kein Login.
+Student: zerosploit-0
+Modul: DBWE – Datenbanken und Webentwicklung
+Schule: ipso Bildung
 
-**Ausgabe erfassen**
-
-Schritte: Im Dashboard eine neue Ausgabe mit Betrag, Kategorie und Datum erfassen.
-
-Erwartung: Eintrag wird gespeichert und erscheint in der Tabelle sowie im Pie Chart.
-
-**Ausgabe löschen/bearbeiten**
-
-Schritte: Bestehende Ausgabe entfernen oder ändern.
-
-Erwartung: Änderung ist in Datenbank und UI sichtbar.
-
-# REST-API
-
-Schritte: API-Endpunkt mit HTTP-Client aufrufen.
-
-Erwartung: JSON-Ausgabe mit den erwarteten Daten.
-
-Diese Tests wurden ausgeführt. Auf ein Testprotokoll wurde verzichtet, da die Webseite vollständig getestet wurde
-
-
-# Autor
-
-**Student:** zerosploit-0 (GitHub)
-
-**Modul:** Datenbanken und Webentwicklung (DBWE)
-
-**Schule:** ipso Bildung
-
-Dieses Projekt dient als Praxisarbeit und als Grundlage, um Konzepte wie Webentwicklung mit Flask, Datenbankdesign und API-Integration praktisch anzuwenden.
+Dieses Projekt zeigt den praktischen Einsatz von Flask, relationalen Datenbanken, API-Design und moderner Webentwicklung.
