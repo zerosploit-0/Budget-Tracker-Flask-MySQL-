@@ -132,7 +132,7 @@ def add_transaction():
     description = (data.get('description') or '').strip()
     cat_id = data.get('category_id')
     date_str = (data.get('date') or '').strip()
-    tx_date = datetime.utcnow()
+    tx_date = datetime.now()
     if date_str:
         try:
             tx_date = datetime.fromisoformat(date_str.replace('Z', '+00:00'))
