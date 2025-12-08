@@ -29,7 +29,7 @@ def run_query(sql: str, params: Tuple[Any, ...] = (), fetch: bool = False, one: 
     conn.close()
     return rows if fetch else cur.lastrowid
 
-# --------------- API: Auth ----------------
+# --------------- API: Auth Routen----------------
 @app.route('/api/register', methods=['POST'])
 def api_register():
     data = request.get_json(force=True)
@@ -42,7 +42,7 @@ def api_register():
         run_query('INSERT INTO users (username, password) VALUES (%s, %s)', (username, hashed))
         return jsonify({"message": "User registered successfully!"}), 201
     except Error as e:
-        return jsonify({"message": "Registration failed", "detail": str(e)}), 400  # :contentReference[oaicite:5]{index=5}
+        return jsonify({"message": "Registration failed", "detail": str(e)}), 400  # Error handling, gibt einen fehlermeldung zurück
 
 @app.route('/api/login', methods=['POST'])
 def api_login():
@@ -53,9 +53,9 @@ def api_login():
     if row and check_password_hash(row[2], password):
         session['user_id'] = row[0]
         return jsonify({"message": "Login successful!"}), 200
-    return jsonify({"message": "Invalid credentials"}), 401  # :contentReference[oaicite:6]{index=6}
+    return jsonify({"message": "Invalid credentials"}), 401  # Error Handling checked passwword hash und gleicht mit dem gespeicherten Passwort hash in der DB
 
-# ----------- API: Categories --------------
+# ----------- API: Categories Routen --------------
 @app.route('/api/categories', methods=['GET'])
 def list_categories():
     if (resp := require_login()) is not None: return resp
@@ -110,7 +110,7 @@ def get_transactions():
         "category_id": r[5],
         "category_name": r[6],
         "category_color": r[7],
-    } for r in rows]), 200  # :contentReference[oaicite:7]{index=7}
+    } for r in rows]), 200  # gibt den fetch zurück aus der DB
 
 @app.route('/api/transactions', methods=['POST'])
 def add_transaction():
