@@ -1,5 +1,5 @@
 # =========================================
-# path: app.py
+# Pfad: app.py
 # =========================================
 from flask import Flask, request, jsonify, render_template, redirect, url_for, session
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -12,7 +12,7 @@ from typing import Tuple, Any
 app = Flask(__name__)
 app.secret_key = "CHANGE_ME"  # TODO: per ENV setzen
 
-# ---------------- Helpers ----------------
+# ---------------- Helper Funktionen ----------------
 def require_login():
     if 'user_id' not in session:
         return jsonify({"message": "Please login first"}), 401
@@ -87,7 +87,7 @@ def delete_category(cat_id: int):
     run_query('DELETE FROM categories WHERE user_id=%s AND id=%s', (uid, cat_id))
     return jsonify({"message": "Category deleted"})
 
-# ----------- API: Transactions ------------
+# ----------- API: Transactions Routen ------------
 @app.route('/api/transactions', methods=['GET'])
 def get_transactions():
     if (resp := require_login()) is not None: return resp
@@ -148,7 +148,7 @@ def add_transaction():
         'INSERT INTO transactions (user_id, amount, type, description, date, category_id) VALUES (%s,%s,%s,%s,%s,%s)',
         (uid, amount, type_, description, tx_date, cat_id)
     )
-    return jsonify({"message": "Transaction added successfully!"}), 201  # :contentReference[oaicite:8]{index=8}
+    return jsonify({"message": "Transaction added successfully!"}), 201  #  Ende Funktin für Transaktionen
 
 @app.route('/api/transactions/<int:tx_id>', methods=['DELETE'])
 def delete_transaction(tx_id: int):
@@ -157,7 +157,7 @@ def delete_transaction(tx_id: int):
     run_query('DELETE FROM transactions WHERE id=%s AND user_id=%s', (tx_id, uid))
     return jsonify({"message": "Transaction deleted"})
 
-# --------------- API: Summary -------------
+# --------------- API: Summary Routen-------------
 @app.route('/api/summary', methods=['GET'])
 def summary():
     if (resp := require_login()) is not None: return resp
@@ -193,11 +193,11 @@ def summary():
 
 # ---------------- Pages -------------------
 @app.route('/')
-def index():  # für index.html (url_for('register')/('login')) :contentReference[oaicite:9]{index=9}
+def index():  # für index.html (url_for('register')/('login'))
     return render_template('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
-def login():  # Template postet an url_for('login') :contentReference[oaicite:10]{index=10}
+def login():  # Template postet an url_for('login') 
     if request.method == 'POST':
         username = (request.form.get('username') or '').strip()
         password = (request.form.get('password') or '').strip()
@@ -209,7 +209,7 @@ def login():  # Template postet an url_for('login') :contentReference[oaicite:10
     return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
-def register():  # Links zeigen auf url_for('register') :contentReference[oaicite:11]{index=11}
+def register():  # Links zeigen auf url_for('register') 
     if request.method == 'POST':
         username = (request.form.get('username') or '').strip()
         password = (request.form.get('password') or '').strip()
@@ -227,7 +227,7 @@ def register():  # Links zeigen auf url_for('register') :contentReference[oaicit
 def dashboard():
     if 'user_id' not in session:
         return redirect(url_for('login'))
-    return render_template('dashboard.html')  # nutzt die Fetch-APIs + Charts :contentReference[oaicite:12]{index=12}
+    return render_template('dashboard.html')  # nutzt die Fetch-APIs + Charts 
 
 @app.route('/logout')
 def logout():
