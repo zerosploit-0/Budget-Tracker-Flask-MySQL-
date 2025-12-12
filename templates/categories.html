@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kategorien verwalten - Budget Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* Flash Messages */
+        .flash-message {
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .flash-success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+        
+        .flash-error {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Add Category Form */
+        .add-form {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+        
+        .add-form h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        input[type="text"] {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border 0.3s;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        input[type="color"] {
+            width: 60px;
+            height: 45px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-add {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-add:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+            padding: 8px 15px;
+            font-size: 12px;
+        }
+        
+        .btn-delete:hover {
+            background: #c82333;
+            transform: translateY(-1px);
+        }
+        
+        .btn-back {
+            background: #6c757d;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        
+        .btn-back:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+        
+        /* Categories List */
+        .categories-section {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .categories-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .categories-header h2 {
+            color: #333;
+            font-size: 20px;
+        }
+        
+        .count-badge {
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .category-list {
+            list-style: none;
+        }
+        
+        .category-item {
+            background: #f8f9fa;
+            padding: 18px;
+            margin-bottom: 12px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .category-item:hover {
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+        
+        .category-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .category-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        
+        .category-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+        
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-group {
+                flex-direction: column;
+            }
+            
+            input[type="text"], .btn-add {
+                width: 100%;
+            }
+            
+            .category-item {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🏷️ Kategorien verwalten</h1>
+            <p class="subtitle">Erstelle und verwalte deine eigenen Ausgaben-Kategorien</p>
+        </div>
+        
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message flash-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <!-- Add Category Form -->
+        <div class="add-form">
+            <h2>➕ Neue Kategorie erstellen</h2>
+            <form action="{{ url_for('main.add_category') }}" method="POST">
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Kategorie-Name eingeben..." required maxlength="100">
+                    <input type="color" name="color" value="#999999" title="Farbe wählen">
+                    <button type="submit" class="btn btn-add">Hinzufügen</button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Categories List -->
+        <div class="categories-section">
+            <div class="categories-header">
+                <h2>📋 Meine Kategorien</h2>
+                <span class="count-badge">{{ categories|length }}</span>
+            </div>
+            
+            <ul class="category-list">
+            {% for cat in categories %}
+                <li class="category-item">
+                    <div class="category-info">
+                        <div class="category-color" style="background-color: {{ cat.color }}"></div>
+                        <span class="category-name">{{ cat.name }}</span>
+                    </div>
+                    <form action="{{ url_for('main.delete_category', category_id=cat.id) }}" method="POST" 
+                          onsubmit="return confirm('Kategorie \'{{ cat.name }}\' wirklich löschen?');">
+                        <button type="submit" class="btn btn-delete">🗑️ Löschen</button>
+                    </form>
+                </li>
+            {% else %}
+                <li class="empty-state">
+                    <div class="empty-state-icon">📭</div>
+                    <p>Noch keine Kategorien vorhanden</p>
+                    <p style="font-size: 14px; margin-top: 10px;">Erstelle deine erste Kategorie oben!</p>
+                </li>
+            {% endfor %}
+            </ul>
+            
+            <a href="{{ url_for('main.dashboard') }}" class="btn btn-back">← Zurück zum Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>

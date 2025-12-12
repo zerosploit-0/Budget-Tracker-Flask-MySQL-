@@ -1,36 +1,191 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Budget Tracker</title>
-  <!-- identisches Styling wie register.html -->
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:'Inter',sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#f093fb 0%, #f5576c 100%);padding:20px;position:relative;overflow:hidden}
-    body::before{content:'';position:absolute;width:600px;height:600px;background:radial-gradient(circle, rgba(255,255,255,0.15), transparent);border-radius:50%;top:-300px;left:-300px;animation:float 6s ease-in-out infinite}
-    body::after{content:'';position:absolute;width:500px;height:500px;background:radial-gradient(circle, rgba(255,255,255,0.1), transparent);border-radius:50%;bottom:-250px;right:-250px;animation:float 7s ease-in-out infinite reverse}
-    @keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,30px)}}
-    .container{background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);border-radius:30px;padding:40px 32px;box-shadow:0 20px 60px rgba(0,0,0,0.3);max-width:520px;width:100%;position:relative;z-index:1;animation:slideIn .5s ease;text-align:center}
-    @keyframes slideIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-    .logo{width:80px;height:80px;margin:0 auto 16px;background:linear-gradient(135deg,#f093fb,#f5576c);border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:40px;box-shadow:0 10px 30px rgba(240,147,251,0.4)}
-    h1{color:#2d3748;font-size:32px;font-weight:800;margin-bottom:8px}
-    p{color:#718096;margin-bottom:20px}
-    .row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-    .btn{padding:14px 20px;border:0;border-radius:14px;font-weight:700;background:linear-gradient(135deg,#f093fb,#f5576c);color:#fff;cursor:pointer;text-decoration:none}
-    .btn.alt{background:#fff;color:#f5576c;border:2px solid #ffd1e6}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Tracker - Deine Finanzen im Griff</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        .hero {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 60px 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #333;
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 20px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .feature {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            transition: transform 0.3s;
+        }
+        
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        .feature h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .feature p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+        
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 32px;
+            }
+            
+            .subtitle {
+                font-size: 16px;
+            }
+            
+            .hero {
+                padding: 40px 20px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo">💰</div>
-    <h1>Budget Tracker</h1>
-    <p>Behalte Einnahmen & Ausgaben im Blick.</p>
-    <div class="row">
-      <a class="btn" href="{{ url_for('register') }}">Registrieren</a>
-      <a class="btn alt" href="{{ url_for('login') }}">Einloggen</a>
+    <div class="container">
+        <div class="hero">
+            <div class="logo">💰</div>
+            <h1>Budget Tracker</h1>
+            <p class="subtitle">
+                Behalte den Überblick über deine Finanzen.<br>
+                Einfach, übersichtlich und effektiv.
+            </p>
+            
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <h3>Übersicht</h3>
+                    <p>Visualisiere deine Einnahmen und Ausgaben mit übersichtlichen Charts</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">🏷️</div>
+                    <h3>Kategorien</h3>
+                    <p>Organisiere deine Transaktionen in individuellen Kategorien</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">📱</div>
+                    <h3>API</h3>
+                    <p>Greife auf deine Daten über unsere REST-API zu</p>
+                </div>
+            </div>
+            
+            <div class="cta-buttons">
+                <a href="{{ url_for('auth.register') }}" class="btn btn-primary">Jetzt registrieren</a>
+                <a href="{{ url_for('auth.login') }}" class="btn btn-secondary">Anmelden</a>
+            </div>
+        </div>
     </div>
-  </div>
 </body>
 </html>
