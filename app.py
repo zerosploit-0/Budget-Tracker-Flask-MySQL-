@@ -10,7 +10,7 @@ from db_config import get_db_connection  # stellt Verbindung zu deiner budget_tr
 from typing import Tuple, Any
 
 app = Flask(__name__)
-app.secret_key = "CHANGE_ME"  # TODO: per ENV setzen
+app.secret_key = "iLWrr7L5kNynjbtTdnko9A"  # Secret Key
 
 # ---------------- Helper Funktionen ----------------
 def require_login():
