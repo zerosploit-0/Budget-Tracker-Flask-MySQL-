@@ -306,7 +306,7 @@
                     </div>
                     <form action="{{ url_for('main.delete_category', category_id=cat.id) }}" method="POST" 
                           onsubmit="return confirm('Kategorie \'{{ cat.name }}\' wirklich löschen?');">
-                        <button type="submit" class="btn btn-delete">🗑️ Löschen</button>
+                        <button type="submit" class="btn btn-delete">Endgültig Löschen</button>
                     </form>
                 </li>
             {% else %}
