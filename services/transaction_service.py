@@ -31,14 +31,14 @@ class TransactionService:
         try:
             amount = float(amount)
             if amount <= 0:
-                return False, "Betrag muss größer als 0 sein"
+                return False, "Betrag muss grösser als 0 sein"
         except ValueError:
             return False, "Ungültiger Betrag"
         
         if transaction_type not in ['income', 'expense']:
             return False, "Ungültiger Transaktionstyp"
         
-        # Parse date if provided
+        # Daten Parsen sofern vorhanden
         if date:
             try:
                 if isinstance(date, str):

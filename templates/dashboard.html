@@ -341,7 +341,7 @@
                 <div class="user-info">Herzlich Willkommen zu deinem Dashboard, {{ session.username }}</div>
             </div>
             <div class="nav-buttons">
-                <a href="{{ url_for('main.manage_categories') }}" class="btn btn-primary">🏷️ Kategorien</a>
+                <a href="{{ url_for('main.manage_categories') }}" class="btn btn-primary"> Kategorien</a>
                 <a href="{{ url_for('auth.logout') }}" class="btn btn-secondary">Abmelden</a>
             </div>
         </div>
@@ -377,7 +377,7 @@
         <div class="main-grid">
             <!-- Add Transaction Form -->
             <div class="card">
-                <h2>➕ Neue Transaktion Hinzufügen</h2>
+                <h2> Neue Transaktion Hinzufügen</h2>
                 <form action="{{ url_for('main.add_transaction') }}" method="POST">
                     <div class="form-group">
                         <label for="amount">Betrag (CHF)</label>
@@ -465,7 +465,7 @@
         </div>
     </div>
     
-    <!-- Chart.js Script -->
+    <!-- Chart.js Script --> <!-- Erstellt durch AI-->
     <script>
         // Prepare data from Flask
         const categoryData = {{ category_chart|tojson }};

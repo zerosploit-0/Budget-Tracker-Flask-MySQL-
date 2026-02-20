@@ -188,12 +188,12 @@
             <!-- Login Form -->
             <form action="{{ url_for('auth.login') }}" method="POST">
                 <div class="form-group">
-                    <label for="username">Benutzername</label>
+                    <label for="username">Benutzername oder E-Mail-Adresse</label>
                     <input 
                         type="text" 
                         id="username" 
                         name="username" 
-                        placeholder="Dein Benutzername"
+                        placeholder="Dein Benutzername oder deine E-Mail-Adresse"
                         required
                         autofocus>
                 </div>
