@@ -1,6 +1,6 @@
 """
 Authentication Service - Business-Logik für Authentifizierung
-Angepasst an deine DB (ohne email)
+Angepasst an DB (ohne email)
 """
 from models.user import User
 from models.category import Category
@@ -32,7 +32,7 @@ class AuthService:
         
         # Prüfe Existenz
         if User.username_exists(username):
-            return False, "Username bereits vergeben"
+            return False, "Username ist bereits vergeben. Wähle bitte einen anderen."
         
         # Erstelle User
         if User.create(username, password):

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Budget Tracker</title>
+    <title>Budget Tracker</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
         * {
@@ -337,8 +337,8 @@
         <!-- Header -->
         <div class="header">
             <div>
-                <h1>💰 Dashboard</h1>
-                <div class="user-info">Willkommen, {{ session.username }}!</div>
+                <h1>Dein Dashboard</h1>
+                <div class="user-info">Herzlich Willkommen zu deinem Dashboard, {{ session.username }}</div>
             </div>
             <div class="nav-buttons">
                 <a href="{{ url_for('main.manage_categories') }}" class="btn btn-primary">🏷️ Kategorien</a>
@@ -360,11 +360,11 @@
         <!-- Summary Cards -->
         <div class="summary">
             <div class="summary-card income">
-                <h3>Einnahmen</h3>
+                <h3>Deine Einnahmen</h3>
                 <div class="amount">CHF {{ "%.2f"|format(summary.total_income) }}</div>
             </div>
             <div class="summary-card expense">
-                <h3>Ausgaben</h3>
+                <h3>Deine Ausgaben</h3>
                 <div class="amount">CHF {{ "%.2f"|format(summary.total_expenses) }}</div>
             </div>
             <div class="summary-card balance">
@@ -377,7 +377,7 @@
         <div class="main-grid">
             <!-- Add Transaction Form -->
             <div class="card">
-                <h2>➕ Neue Transaktion</h2>
+                <h2>➕ Neue Transaktion Hinzufügen</h2>
                 <form action="{{ url_for('main.add_transaction') }}" method="POST">
                     <div class="form-group">
                         <label for="amount">Betrag (CHF)</label>
@@ -418,7 +418,7 @@
             
             <!-- Chart -->
             <div class="card">
-                <h2>📊 Ausgaben nach Kategorie</h2>
+                <h2>Deine Ausgaben nach Kategorie</h2>
                 <div class="chart-container">
                     <canvas id="categoryChart"></canvas>
                 </div>
@@ -427,7 +427,7 @@
         
         <!-- Transactions List -->
         <div class="transactions-section">
-            <h2>📋 Transaktionen ({{ transactions|length }})</h2>
+            <h2>Deine Transaktionen ({{ transactions|length }})</h2>
             <ul class="transactions-list">
             {% for t in transactions %}
                 <li class="transaction-item">
@@ -437,7 +437,7 @@
                                 {{ t.category_name }}
                             </span>
                             <span class="transaction-type">
-                                {% if t.type == 'income' %}💰{% else %}💸{% endif %}
+                                {% if t.type == 'income' %}🟢{% else %}🔴{% endif %}
                             </span>
                         </div>
                         <div class="transaction-description">{{ t.description or 'Keine Beschreibung' }}</div>
@@ -450,7 +450,7 @@
                     <div class="transaction-actions">
                         <form action="{{ url_for('main.delete_transaction', transaction_id=t.id) }}" method="POST" 
                               onsubmit="return confirm('Transaktion wirklich löschen?');">
-                            <button type="submit" class="btn-small btn-delete">🗑️ Löschen</button>
+                            <button type="submit" class="btn-small btn-delete"> Löschen</button>
                         </form>
                     </div>
                 </li>

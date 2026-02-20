@@ -1,4 +1,4 @@
-"""Category Service - Business-Logik für Kategorien (korrekte Version)
+"""Category Service - Business-Logik für Kategorien 
 
 Dieses Modul benutzt die Methoden aus `models.category`.
 """
@@ -95,13 +95,6 @@ class CategoryService:
             'standard': standard_count,
             'custom': custom_count
         }
-"""Deprecated duplicate module.
-
-This file is a case-variant duplicate of
-`services/category_service.py`. Use the lowercase module
-`services.category_service` instead. Keeping this small
-placeholder avoids accidental heavy imports on Windows.
-"""
 
 from services.category_service import CategoryService  # re-export
 
